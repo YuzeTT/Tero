@@ -59,4 +59,4 @@ npm build
 
 ## 特别感谢
 
-- UI灵感：[MikuTools](https://tools.miku.ac/)
+- UI灵感：[MikuTools](https://github.com/Ice-Hazymoon/MikuTools)

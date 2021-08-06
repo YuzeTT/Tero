@@ -21,11 +21,11 @@
         <Card title="绑定信息" icon="eva-person-outline">
           <el-descriptions :column="userInfo.column">
             <el-descriptions-item label="姓名">**伟</el-descriptions-item>
-            <el-descriptions-item label="绑定QQ">2517746965</el-descriptions-item>
+            <el-descriptions-item label="绑定QQ">25****6965</el-descriptions-item>
             <el-descriptions-item label="权限">
               <el-tag size="small">管理员</el-tag>
             </el-descriptions-item>
-            <el-descriptions-item label="学校">光泽二中</el-descriptions-item>
+            <el-descriptions-item label="学校">家里蹲中学</el-descriptions-item>
             <el-descriptions-item label="年级">
               <el-tag size="small">九年级</el-tag>
             </el-descriptions-item>
@@ -119,5 +119,8 @@ export default {
 </script>
 
 <style scoped>
-
+.home {
+  max-width: 800px;
+  margin: auto;
+}
 </style>
