@@ -109,7 +109,7 @@ export default {
   },
   data() {
     return {
-      activeNames: ['1'],
+      activeNames: [],
       userInfo: {
         column: 2,
       }

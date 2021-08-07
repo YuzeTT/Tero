@@ -14,10 +14,6 @@
 </template>
 
 <script>
-const eva = require('eva-icons');
-// import * as eva from 'eva-icons';
-eva.replace()
-
 export default {
   props: {
     title: String,
