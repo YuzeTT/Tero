@@ -42,13 +42,13 @@
           </el-descriptions>
           <el-row :gutter="10">
             <el-col :span="12">
-              <el-button type="success" plain style="width: 100%;">展开全部</el-button>
+              <el-button type="success" plain style="width: 100%;" @click="showAll()">展开全部</el-button>
             </el-col>
             <el-col :span="12">
-              <el-button type="danger" plain style="width: 100%;">收起全部</el-button>
+              <el-button type="danger" plain style="width: 100%;" @click="hideAll()">收起全部</el-button>
             </el-col>
           </el-row>
-          <el-collapse v-model="activeNames" @change="handleChange">
+          <el-collapse v-model="activeNames">
             <el-collapse-item title="语文" name="1">
               <div>与现实生活一致：与现实生活的流程、逻辑保持一致，遵循用户习惯的语言和概念；</div>
               <div>在界面中一致：所有的元素和结构需保持一致，比如：设计样式、图标和文本、元素的位置等。</div>
@@ -115,6 +115,14 @@ export default {
       }
     }
   },
+  methods: {
+    showAll:function() {
+      this.activeNames = ['1','2','3','4','5','6','7']
+    },
+    hideAll:function() {
+      this.activeNames = []
+    }
+  }
 }
 </script>
 
