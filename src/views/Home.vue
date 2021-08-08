@@ -15,6 +15,7 @@
         </el-alert>
         <!-- <Hello/> -->
         <Card title="公告" icon="eva-smiling-face-outline">
+          <el-skeleton :rows="0" animated :loading="loadingNotice" />
           {{ notice }}
         </Card>
 
@@ -48,12 +49,38 @@
               <el-button type="danger" plain style="width: 100%;" @click="hideAll()">收起全部</el-button>
             </el-col>
           </el-row>
-          <el-collapse v-model="activeNames">
-            <el-collapse-item title="语文" name="1">
-              <div>与现实生活一致：与现实生活的流程、逻辑保持一致，遵循用户习惯的语言和概念；</div>
-              <div>在界面中一致：所有的元素和结构需保持一致，比如：设计样式、图标和文本、元素的位置等。</div>
+          <el-collapse v-model="activeNames" v-for="(item,index) in homeWork" :key="item">
+            <el-collapse-item :title=item.title :name=index>
+              <!-- <div>{{ item.list }}</div> -->
+              <!-- <ul>
+                <li v-for="items in item.list" :key="items">
+                  {{ items.text }}
+                </li>
+              </ul> -->
+
+              <el-table
+                :data="item.list"
+                style="width: 100%"
+                >
+                <el-table-column
+                  prop="text"
+                  label="书本"
+                  width="130">
+                </el-table-column>
+                <el-table-column
+                  prop="pages"
+                  label="页数"
+                  width="80">
+                </el-table-column>
+                <el-table-column
+                  prop="remarks"
+                  label="备注"
+                  >
+                </el-table-column>
+                
+              </el-table>
             </el-collapse-item>
-            <el-collapse-item title="数学" name="2">
+            <!-- <el-collapse-item title="数学" name="2">
               <div>控制反馈：通过界面样式和交互动效让用户可以清晰的感知自己的操作；</div>
               <div>页面反馈：操作后，通过页面元素的变化清晰地展现当前状态。</div>
             </el-collapse-item>
@@ -77,8 +104,22 @@
             <el-collapse-item title="生物" name="7">
               <div>用户决策：根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；</div>
               <div>结果可控：用户可以自由的进行操作，包括撤销、回退和终止当前操作等。</div>
-            </el-collapse-item>
+            </el-collapse-item> -->
           </el-collapse>
+        </Card>
+
+        <Card title="快捷入口" icon="eva-cube-outline">
+           <el-collapse>
+            <el-collapse-item title="隐藏内容" name="1">
+              <p>光泽县<b>教育局</b>客服电话：0599-7922258</p>
+              <p>南平市<b>教育局</b>客服电话：0599-8855926</p>
+              <p>福建省<b>教育厅</b>客服电话：0591-87091616</p>
+              <p>全国<b>教育部</b>通用电话：010-66092315/3315</p>
+              <p>全国<b>教育部</b>通用邮箱：12391@moe.edu.cn </p>
+              <hr>
+              <p><el-link type="primary" href="https://www.bilibili.com/video/BV1db4y1X7Vj">举报注意事项|老师针对指南</el-link></p>
+            </el-collapse-item>
+           </el-collapse>
         </Card>
       </el-main>
       <el-footer style="height: 40px;">
@@ -113,7 +154,9 @@ export default {
       userInfo: {
         column: 2,
       },
-      notice: '加载中...'
+      loadingNotice: true,
+      notice: '',
+      homeWork: ''
     }
   },
   mounted () {
@@ -122,7 +165,20 @@ export default {
       .then(response => {
         // console.log(this.$gwConfig)
         console.log(response)
+        this.loadingNotice = false
         this.notice = response.data
+      })
+      .catch(error => {
+        console.log(error)
+      })
+    
+    this.$axios
+      .get('/get_home_work/'+this.getDate())
+      .then(response => {
+        // console.log(this.$gwConfig)
+        console.log(response)
+        this.loadingNotice = false
+        this.homeWork = response.data.text.home_work
       })
       .catch(error => {
         console.log(error)
@@ -134,6 +190,14 @@ export default {
     },
     hideAll:function() {
       this.activeNames = []
+    },
+    getDate:function() {
+      let d = new Date()
+      let yy = d.getFullYear()
+      let mm = d.getMonth() + 1
+      let dd = d.getDate()
+      let date = yy + '-' + mm + '-' + dd
+      return date
     }
   }
 }
