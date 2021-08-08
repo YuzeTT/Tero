@@ -3,6 +3,10 @@
     <span>
       ©2021 uzett.com
     </span>
+    |
+    <span>
+      <el-link type="primary" href="https://github.com/YuzeTT/Tero">Github</el-link>
+    </span>
   </div>
 </template>
 

@@ -15,7 +15,7 @@
         </el-alert>
         <!-- <Hello/> -->
         <Card title="公告" icon="eva-smiling-face-outline">
-          下午好
+          {{ notice }}
         </Card>
 
         <Card title="绑定信息" icon="eva-person-outline">
@@ -81,7 +81,7 @@
           </el-collapse>
         </Card>
       </el-main>
-      <el-footer>
+      <el-footer style="height: 40px;">
         <Footer/>
       </el-footer>
     </el-container>
@@ -112,8 +112,21 @@ export default {
       activeNames: [],
       userInfo: {
         column: 2,
-      }
+      },
+      notice: '加载中...'
     }
+  },
+  mounted () {
+    this.$axios
+      .get('/notice')
+      .then(response => {
+        // console.log(this.$gwConfig)
+        console.log(response)
+        this.notice = response.data
+      })
+      .catch(error => {
+        console.log(error)
+      })
   },
   methods: {
     showAll:function() {
