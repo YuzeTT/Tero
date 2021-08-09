@@ -15,8 +15,8 @@
         </el-alert>
         <!-- <Hello/> -->
         <Card title="公告" icon="eva-smiling-face-outline">
-          <el-skeleton :rows="0" animated :loading="loadingNotice" />
-          {{ notice }}
+          <el-skeleton :rows="0" animated v-bind:loading="loadingNotice" />
+          {{ text }}
         </Card>
 
         <Card title="绑定信息" icon="eva-person-outline">
@@ -110,12 +110,15 @@
 
 <script>
 // @ is an alias to /src
-import {reactive,toRefs} from 'vue'
+import {ref,reactive,toRefs,onMounted,getCurrentInstance} from 'vue'
+const axios = require('axios');
 import Navbar from '@/components/Navbar.vue'
 import Footer from '@/components/Footer.vue'
 import Hello from '@/components/Hello.vue'
 import Card from '@/components/Card.vue'
 import Error from '@/components/Error.vue'
+
+import {nowDate, getNowDate} from '../hooks/getNowDate'
 // import { 
 //   Edit,
 //   } from '@element-plus/icons'
@@ -123,17 +126,58 @@ import Error from '@/components/Error.vue'
 export default {
   name: 'Home',
   setup() {
+    const { proxy } = getCurrentInstance()
+    // 作业列表
     const homeWorkList = reactive({
+      loadingNotice: true,
+      homeWork: '',
       activeNames: [],
       showAll: () => {
-        homeWorkList.activeNames = ['1','2','3','4','5','6','7']
+        homeWorkList.activeNames = ['0','1','2','3','4','5','6','7']
       },
       hideAll: () => {
         homeWorkList.activeNames = []
       }
     })
+    // 公告
+    const notice = reactive({
+      loadingNotice: true,
+      text: ''
+    })
+    onMounted(() => {
+      // 获取日期
+      getNowDate()
+
+      // 请求公告
+      proxy.$axios
+        .get('/notice')
+        .then(response => {
+          // console.log(this.$gwConfig)
+          console.log(response)
+          notice.loadingNotice = false
+          notice.text = response.data
+        })
+        .catch(error => {
+          console.log(error)
+        })
+      
+      // 请求作业列表
+      proxy.$axios
+        .get('/get_home_work/'+nowDate.value)
+        .then(response => {
+          // console.log(this.$gwConfig)
+          console.log(response)
+          homeWorkList.loadingNotice = false
+          homeWorkList.homeWork = response.data.text.home_work
+        })
+        .catch(error => {
+          console.log(error)
+        })
+    })
     return {
-      ...toRefs(homeWorkList)
+      ...toRefs(homeWorkList),
+      ...toRefs(notice),
+      
     }
   },
   components: {
@@ -150,46 +194,14 @@ export default {
       userInfo: {
         column: 2,
       },
-      loadingNotice: true,
-      notice: '',
-      homeWork: ''
+      // loadingNotice: true,
+      // notice: '',
+      // homeWork: ''
     }
   },
-  mounted () {
-    this.$axios
-      .get('/notice')
-      .then(response => {
-        // console.log(this.$gwConfig)
-        console.log(response)
-        this.loadingNotice = false
-        this.notice = response.data
-      })
-      .catch(error => {
-        console.log(error)
-      })
+  onMounted() {
     
-    this.$axios
-      .get('/get_home_work/'+this.getDate())
-      .then(response => {
-        // console.log(this.$gwConfig)
-        console.log(response)
-        this.loadingNotice = false
-        this.homeWork = response.data.text.home_work
-      })
-      .catch(error => {
-        console.log(error)
-      })
   },
-  methods: {
-    getDate:function() {
-      let d = new Date()
-      let yy = d.getFullYear()
-      let mm = d.getMonth() + 1
-      let dd = d.getDate()
-      let date = yy + '-' + mm + '-' + dd
-      return date
-    }
-  }
 }
 </script>
 
