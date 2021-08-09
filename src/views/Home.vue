@@ -50,7 +50,6 @@
             </el-col>
           </el-row>
           <el-collapse v-model="activeNames" v-for="(item,index) in homeWork" :key="item">
-            {{activeNames}}
             <el-collapse-item :title=item.title :name=index>
               <!-- <div>{{ item.list }}</div> -->
               <!-- <ul>
@@ -139,11 +138,18 @@ export default {
         homeWorkList.activeNames = []
       }
     })
+
     // 公告
     const notice = reactive({
       loadingNotice: true,
       text: ''
     })
+
+    // 用户信息
+    const userInfo = ref({
+      column: 2
+    })
+
     onMounted(() => {
       // 获取日期
       getNowDate()
@@ -177,6 +183,7 @@ export default {
     return {
       ...toRefs(homeWorkList),
       ...toRefs(notice),
+      userInfo,
       
     }
   },
@@ -187,20 +194,6 @@ export default {
     Card,
     Error,
     // Edit,
-  },
-  data() {
-    return {
-      
-      userInfo: {
-        column: 2,
-      },
-      // loadingNotice: true,
-      // notice: '',
-      // homeWork: ''
-    }
-  },
-  onMounted() {
-    
   },
 }
 </script>
