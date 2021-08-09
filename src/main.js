@@ -12,4 +12,5 @@ axios.defaults.baseURL = teroConfig.api.baseURL
 app.config.globalProperties.$teroConfig = teroConfig
 app.config.globalProperties.$axios = axios
 installElementPlus(app)
+
 app.use(router).mount('#app')

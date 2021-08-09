@@ -121,6 +121,9 @@
             </el-collapse-item>
            </el-collapse>
         </Card>
+        <Card title="测试区域" icon="eva-cube-outline">
+          <Error></Error>
+        </Card>
       </el-main>
       <el-footer style="height: 40px;">
         <Footer/>
@@ -135,6 +138,7 @@ import Navbar from '@/components/Navbar.vue'
 import Footer from '@/components/Footer.vue'
 import Hello from '@/components/Hello.vue'
 import Card from '@/components/Card.vue'
+import Error from '@/components/Error.vue'
 // import { 
 //   Edit,
 //   } from '@element-plus/icons'
@@ -146,6 +150,7 @@ export default {
     Footer,
     Hello,
     Card,
+    Error,
     // Edit,
   },
   data() {
