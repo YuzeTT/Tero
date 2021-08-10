@@ -49,6 +49,11 @@
               <el-button type="danger" plain style="width: 100%;" @click="hideAll()">收起全部</el-button>
             </el-col>
           </el-row>
+          <el-result :icon="homeWorkResult.icon" :title="homeWorkResult.title" :subTitle="homeWorkResult.subTitle">
+            <!-- <template #extra>
+              <el-button type="primary" size="medium">返回</el-button>
+            </template> -->
+          </el-result>
           <el-collapse v-model="activeNames" v-for="(item,index) in homeWork" :key="item">
             <el-collapse-item :title=item.title :name=index>
               <!-- <div>{{ item.list }}</div> -->
@@ -116,6 +121,7 @@ import Footer from '@/components/Footer.vue'
 import Hello from '@/components/Hello.vue'
 import Card from '@/components/Card.vue'
 import Error from '@/components/Error.vue'
+import Result from '@/components/Result.vue'
 
 import {nowDate, getNowDate} from '../hooks/getNowDate'
 // import { 
@@ -150,6 +156,17 @@ export default {
       column: 2
     })
 
+    const homeWorkResult = reactive({
+      icon: 'info',
+      title: '未找到数据',
+      subTitle: '无信息',
+      update: (icon,title,subTitle) => {
+        homeWorkResult.icon.value = icon
+        homeWorkResult.title.value = title
+        homeWorkResult.subTitle.value = subTitle
+      }
+    })
+
     onMounted(() => {
       // 获取日期
       getNowDate()
@@ -173,8 +190,20 @@ export default {
         .then(response => {
           // console.log(this.$gwConfig)
           console.log(response)
-          homeWorkList.loadingNotice = false
-          homeWorkList.homeWork = response.data.text.home_work
+          if (response.data.code == 200){
+            console.log(response)
+            homeWorkResult.icon = "success"
+            homeWorkResult.title = '今日作业已发布'
+            homeWorkResult.subTitle = ''
+            homeWorkList.loadingNotice = false
+            homeWorkList.homeWork = response.data.text.home_work
+          }else {
+            homeWorkResult.icon = 'warning'
+            homeWorkResult.title = '未发布'
+            homeWorkResult.subTitle = '此平台为学生制作第三方平台，未发布不代表无作业，一切以老师布置为准！'
+            // homeWorkResult.update('warning','2','3')
+          }
+          
         })
         .catch(error => {
           console.log(error)
@@ -184,7 +213,7 @@ export default {
       ...toRefs(homeWorkList),
       ...toRefs(notice),
       userInfo,
-      
+      homeWorkResult,
     }
   },
   components: {
@@ -193,6 +222,7 @@ export default {
     Hello,
     Card,
     Error,
+    Result,
     // Edit,
   },
 }
