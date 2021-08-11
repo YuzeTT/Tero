@@ -49,11 +49,11 @@
               <el-button type="danger" plain style="width: 100%;" @click="hideAll()">收起全部</el-button>
             </el-col>
           </el-row>
-          <el-result :icon="homeWorkResult.icon" :title="homeWorkResult.title" :subTitle="homeWorkResult.subTitle">
-            <!-- <template #extra>
-              <el-button type="primary" size="medium">返回</el-button>
-            </template> -->
-          </el-result>
+          <Result :title="homeWorkResult.title"
+                  :subTitle="homeWorkResult.subTitle"
+                  :color="homeWorkResult.color"
+                  style="margin:0 auto">
+          </Result>
           <el-collapse v-model="activeNames" v-for="(item,index) in homeWork" :key="item">
             <el-collapse-item :title=item.title :name=index>
               <!-- <div>{{ item.list }}</div> -->
@@ -157,11 +157,12 @@ export default {
     })
 
     const homeWorkResult = reactive({
-      icon: 'info',
+      // icon: 'eva-question-mark-outline',
       title: '未找到数据',
       subTitle: '无信息',
-      update: (icon,title,subTitle) => {
-        homeWorkResult.icon.value = icon
+      color: 'black',
+      update: (color,title,subTitle) => {
+        homeWorkResult.color.value = color
         homeWorkResult.title.value = title
         homeWorkResult.subTitle.value = subTitle
       }
@@ -190,18 +191,19 @@ export default {
         .then(response => {
           // console.log(this.$gwConfig)
           console.log(response)
-          if (response.data.code == 200){
+          if (response.data.code == 200) {
             console.log(response)
-            homeWorkResult.icon = "success"
+            // homeWorkResult.icon = 'success'
+            homeWorkResult.color = 'green'
             homeWorkResult.title = '今日作业已发布'
             homeWorkResult.subTitle = ''
             homeWorkList.loadingNotice = false
             homeWorkList.homeWork = response.data.text.home_work
           }else {
-            homeWorkResult.icon = 'warning'
+            // homeWorkResult.icon = 'eva-clock-outline'
+            homeWorkResult.color = 'yellow'
             homeWorkResult.title = '未发布'
             homeWorkResult.subTitle = '此平台为学生制作第三方平台，未发布不代表无作业，一切以老师布置为准！'
-            // homeWorkResult.update('warning','2','3')
           }
           
         })
