@@ -25,10 +25,9 @@ export default {
 .card {
   width: 100%;
   border-radius: 8px;
-  margin-top: 18px;
   /* position: absolute; */
   overflow: unset;
-  margin-top: 30px;
+  margin-top: 40px;
   /* box-shadow: 0.5rem 0.875rem 2.375rem rgb(39 44 49 / 6%), 0.0625rem 0.1875rem 0.5 */
 }
 
