@@ -37,18 +37,18 @@
         </Card>
 
         <Card title="作业" icon="eva-book-open-outline">
-          <el-descriptions :column="userInfo.column">
+          <!-- <el-descriptions :column="userInfo.column">
             <el-descriptions-item label="更新时间">今日 20:56</el-descriptions-item>
             <el-descriptions-item label="更新者">2517746965</el-descriptions-item>
-          </el-descriptions>
-          <el-row :gutter="10">
+          </el-descriptions> -->
+          <!-- <el-row :gutter="10">
             <el-col :span="12">
               <el-button type="success" plain style="width: 100%;" @click="showAll()">展开全部</el-button>
             </el-col>
             <el-col :span="12">
               <el-button type="danger" plain style="width: 100%;" @click="hideAll()">收起全部</el-button>
             </el-col>
-          </el-row>
+          </el-row> -->
           <Result :title="homeWorkResult.title"
                   :subTitle="homeWorkResult.subTitle"
                   :color="homeWorkResult.color"
@@ -158,8 +158,8 @@ export default {
 
     const homeWorkResult = reactive({
       // icon: 'eva-question-mark-outline',
-      title: '未找到数据',
-      subTitle: '无信息',
+      title: '未接收到数据',
+      subTitle: '可能是后端接口失效，请联系管理员！',
       color: 'black',
       update: (color,title,subTitle) => {
         homeWorkResult.color.value = color
