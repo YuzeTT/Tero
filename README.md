@@ -12,6 +12,8 @@
     </a>
 </p>
 
+![Tero](https://socialify.git.ci/YuzeTT/Tero/image?description=1&font=Inter&forks=1&issues=1&language=1&owner=1&pattern=Circuit%20Board&pulls=1&stargazers=1&theme=Light)
+
 ## 介绍
 
 Tero是一个解决问作业困难和被问作业烦人的Web项目。

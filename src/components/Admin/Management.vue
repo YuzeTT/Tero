@@ -3,7 +3,7 @@
     <!-- <h1>
       {{ homeWork.list }}
     </h1> -->
-    <div style="overflow:scroll;">
+    <!-- <div style="overflow:scroll;">
       <table border="1" class="table">
         <tr>
           <th colspan="5">作业列表</th>
@@ -35,7 +35,7 @@
           </td>
         </tr>
       </table>
-    </div>
+    </div> -->
 
     <el-table
       :data="homeWork.list"
@@ -44,15 +44,19 @@
       <el-table-column
         prop="date"
         label="发布日期"
-        width="180">
+        width="150">
       </el-table-column>
       <el-table-column
         prop="create_user"
         label="发布"
-        width="180">
+        width="120">
       </el-table-column>
       <el-table-column
-        prop="create_user"
+        prop="update_user"
+        label="更新"
+        width="120">
+      </el-table-column>
+      <el-table-column
         label="科目列表"
         >
         <template #default="scope">
@@ -64,8 +68,16 @@
         </template>
       </el-table-column>
       <el-table-column
-        prop="update_user"
-        label="更新">
+        label="操作">
+        <template #default="scope">
+          <el-button
+            size="mini"
+            @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+          <el-button
+            size="mini"
+            type="danger"
+            @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+        </template>
       </el-table-column>
     </el-table>
   </div>
