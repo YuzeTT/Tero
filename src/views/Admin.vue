@@ -5,19 +5,19 @@
        <Navbar/>
       </el-header>
       <el-main>
-        <el-tabs v-model="tabs.activeName">
-          <el-tab-pane label="发布管理" name="first">
-            <Card title="发布管理" icon="eva-cloud-upload-outline">
-             
-            </Card>
-          </el-tab-pane>
-          <el-tab-pane label="设置" name="second">
-            <Card title="设置" icon="eva-settings-2-outline">
-             
-            </Card>
-          </el-tab-pane>
-        </el-tabs>
-        
+        <div class="container">
+          <el-tabs v-model="tabs.activeName">
+            <el-tab-pane label="作业管理" name="first">
+              <Management></Management>
+            </el-tab-pane>
+            <el-tab-pane label="发布作业" name="publish">
+
+            </el-tab-pane>
+            <el-tab-pane label="设置" name="setting">
+
+            </el-tab-pane>
+          </el-tabs>
+        </div>
       </el-main>
     </el-container>
   </div>
@@ -26,28 +26,38 @@
 <script>
 import Navbar from '@/components/Navbar.vue'
 import Card from '@/components/Card.vue'
-import { reactive } from '@vue/reactivity'
+import Management from '@/components/Admin/Management.vue'
+import { reactive, getCurrentInstance, onMounted } from 'vue'
 
 export default {
   setup() {
+    const { proxy } = getCurrentInstance()
     const tabs = reactive({
       activeName: 'first'
     })
 
     return {
-      tabs
+      tabs,
     }
   },
   components: {
     Navbar,
-    Card
+    Card,
+    Management,
   }
 }
 </script>
 
 <style>
 .admin {
-  max-width: 800px;
+  max-width: 1200px;
   margin: auto;
+}
+
+.container {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid #e4e7ed;
 }
 </style>

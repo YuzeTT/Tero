@@ -115,7 +115,7 @@
 <script>
 // @ is an alias to /src
 import {ref,reactive,toRefs,onMounted,getCurrentInstance} from 'vue'
-const axios = require('axios');
+// const axios = require('axios');
 import Navbar from '@/components/Navbar.vue'
 import Footer from '@/components/Footer.vue'
 import Hello from '@/components/Hello.vue'
