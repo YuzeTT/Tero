@@ -36,11 +36,43 @@
         </tr>
       </table>
     </div> -->
-
+    <!-- <el-button-group>
+      <el-button type="success" icon="el-icon-plus">发布作业</el-button>
+      <el-button type="primary" icon="el-icon-share"></el-button>
+      <el-button type="primary" icon="el-icon-delete"></el-button>
+    </el-button-group> -->
+    <div style="margin: 10px 0"></div>
     <el-table
       :data="homeWork.list"
       border
       style="width: 100%">
+      <el-table-column type="expand">
+        <template #default="props">
+          <el-form label-position="left" inline class="demo-table-expand">
+            <el-form-item label="创建时间">
+              <span>{{ props.row.date }}</span>
+            </el-form-item>
+            <br>
+            <el-form-item label="创建者">
+              <span>{{ props.row.create_user }}</span>
+            </el-form-item>
+            <br>
+            <el-form-item label="修改者">
+              <span>{{ props.row.update_user }}</span>
+            </el-form-item>
+            <br>
+            <el-form-item label="科目列表">
+              <span>
+                <span v-for="item in props.row.home_work" :key="item">
+                  <el-space wrap>
+                    <el-tag effect="dark" :type="homeWork.isColor(item.title)">{{ item.title }}</el-tag>
+                  </el-space>
+                </span>
+              </span>
+            </el-form-item>
+          </el-form>
+        </template>
+      </el-table-column>
       <el-table-column
         prop="date"
         label="发布日期"
@@ -56,7 +88,7 @@
         label="更新"
         width="120">
       </el-table-column>
-      <el-table-column
+      <!-- <el-table-column
         label="科目列表"
         >
         <template #default="scope">
@@ -66,7 +98,7 @@
             </el-space>
           </span>
         </template>
-      </el-table-column>
+      </el-table-column> -->
       <el-table-column
         label="操作">
         <template #default="scope">
@@ -79,6 +111,7 @@
             @click="handleDelete(scope.$index, scope.row)">删除</el-button>
         </template>
       </el-table-column>
+      
     </el-table>
   </div>
 </template>
