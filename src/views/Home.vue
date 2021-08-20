@@ -6,13 +6,13 @@
        <Navbar/>
       </el-header>
       <el-main style="padding-top:5px">
-        <el-alert
+        <!-- <el-alert
           style="margin-bottom:30px;border-radius: 8px"
           effect="dark"
           title="警告：项目正在开发中。"
           type="warning"
           show-icon>
-        </el-alert>
+        </el-alert> -->
         <!-- <Hello/> -->
         <Card title="公告" icon="eva-smiling-face-outline">
           <el-skeleton :rows="0" animated v-bind:loading="loadingNotice" />
